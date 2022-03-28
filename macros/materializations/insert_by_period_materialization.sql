@@ -46,7 +46,7 @@
     {{target_cols_csv}}
   from (
     {{filtered_sql}}
-  )
+  ) t
 
 {%- endmacro %}
 
@@ -127,7 +127,7 @@
 
     {%- set tmp_identifier = model['name'] ~ '__dbt_incremental_period' ~ i ~ '_tmp' -%}
     {%- set tmp_relation = api.Relation.create(identifier=tmp_identifier,
-                                               schema=schema, type='table') -%}
+                                               schema=None, type='table') -%}
     {% call statement() -%}
       {% set tmp_table_sql = dbt_utils.get_period_sql(target_cols_csv,
                                                        sql,
